@@ -1,4 +1,4 @@
-package Details;
+package config.security;
 
 import jakarta.*;
 import jakarta.servlet.http.HttpServletResponse;

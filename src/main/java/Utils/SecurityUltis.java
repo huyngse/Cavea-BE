@@ -2,7 +2,7 @@ package Utils;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import Details.AccountDetails;
+import config.security.AccountDetails;
 
 public class SecurityUltis {
 	public static AccountDetails getPrincipal() {

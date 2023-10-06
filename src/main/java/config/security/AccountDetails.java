@@ -1,4 +1,4 @@
-package Details;
+package config.security;
 
 import java.util.ArrayList;
 import java.util.Collection;

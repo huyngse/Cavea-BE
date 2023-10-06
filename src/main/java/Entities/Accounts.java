@@ -32,6 +32,9 @@ public class Accounts {
 	@Column(name="reset_password_token")
 	private UUID restpasswordtoken;
 	
+	public Accounts() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public Accounts(int id, String firstname, String lastname, String phone, String email, String username,
 			String password, String role, UUID restpasswordtoken) {
@@ -45,6 +48,8 @@ public class Accounts {
 		this.role = role;
 		this.restpasswordtoken = restpasswordtoken;
 	}
+	
+	
 	public int getId() {
 		return id;
 	}
