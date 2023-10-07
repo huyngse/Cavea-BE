@@ -1,13 +1,13 @@
-package BirdCage1;
+package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BirdCageApplication {
+public class BirdCageWithoutSecurityApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BirdCageApplication.class, args);
+		SpringApplication.run(BirdCageWithoutSecurityApplication.class, args);
 	}
 
 }
