@@ -1,10 +1,10 @@
-package BirdCage1;
+package com.example.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BirdCageApplicationTests {
+class BirdCageWithoutSecurityApplicationTests {
 
 	@Test
 	void contextLoads() {
