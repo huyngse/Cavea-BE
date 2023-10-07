@@ -15,4 +15,11 @@ public interface AccountRepo extends JpaRepository<Account, Integer> {
 	
 	@Query(value = "select * from sales.accounts where username = :username and password = :password or email = :username and password = :password", nativeQuery = true)
 	public Account checkLogin(@Param("username") String username, @Param("password") String password);
+	
+	@Query(value = "insert into sales.accounts (account_id,username, password, email, first_name, last_name, phone, role)\r\n"
+			+ "values(:id,:username, :password, :email, :firstname, :lastname, :phone, :role)", nativeQuery = true)
+	public Account register(@Param("id") int id, @Param("username") String username, @Param("password") String password, @Param("email") String email,
+			@Param("firstname") String firstname, @Param("lastname") String lastname, @Param("phone") String phone, @Param("role") String role);
 }
+
+
