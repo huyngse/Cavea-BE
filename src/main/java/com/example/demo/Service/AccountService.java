@@ -43,8 +43,29 @@ public class AccountService {
 		account.setLastName(registerDTO.getLastname());
 		account.setPhone(registerDTO.getPhone());
 		account.setRole("customer");
-		
 		return accrepo.save(account);
 	}
+	
+	 public Account updateAccount(int id, registerDTO DTO) {
+		 Account accupdate = accrepo.findById(id).orElse(null);
+		 if(accupdate == null) {
+			 return null;
+		 }
+		 String email = DTO.getEmail();
+		 if(accrepo.getUsernameorEmail(email) != null) {
+			 return null;
+		 }
+		 accupdate.setUsername(DTO.getUsername());
+		 accupdate.setPassword(DTO.getPassword());
+		 accupdate.setFirstName(DTO.getFirstname());
+		 accupdate.setLastName(DTO.getLastname());
+		 accupdate.setPhone(DTO.getPhone());
+		 accupdate.setRole(DTO.getRole());
+		 return accrepo.save(accupdate);
+	 }
+	 
+	 public void deleted(int id) {
+		 accrepo.deleteById(id);
+	 }
 
 }

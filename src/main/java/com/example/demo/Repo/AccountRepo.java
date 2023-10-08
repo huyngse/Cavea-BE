@@ -25,6 +25,9 @@ public interface AccountRepo extends JpaRepository<Account, Integer> {
 	
 	@Query(value = "select MAX(account_id) FROM sales.accounts" ,nativeQuery = true)
 	public int getAccountID();
+	
+	@Query(value = "select * from sales.accounts where account_id = :accountid", nativeQuery = true)
+	public int getAccountByID(@Param("accountid") int id);
 }
 
 

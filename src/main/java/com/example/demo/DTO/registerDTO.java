@@ -1,21 +1,21 @@
 package com.example.demo.DTO;
 
 public class registerDTO {
-	private String account_id;
+	private int account_id;
 	private String username;
 	private String password;
 	private String email;
 	private String firstname;
 	private String lastname;
 	private String phone;
-	private String role = "customer";
+	private String role;
 	
 	public registerDTO() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	
-	public registerDTO(String account_id, String username, String password, String email, String firstname, String lastname,
+	public registerDTO(int account_id, String username, String password, String email, String firstname, String lastname,
 			String phone, String role) {
 		this.account_id = account_id;
 		this.username = username;
@@ -28,10 +28,10 @@ public class registerDTO {
 	}
 
 
-	public String getAccount_Id() {
+	public int getAccount_Id() {
 		return account_id;
 	}
-	public void setAccount_Id(String id) {
+	public void setAccount_Id(int id) {
 		this.account_id = id;
 	}
 	public String getUsername() {
