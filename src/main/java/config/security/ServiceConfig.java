@@ -2,7 +2,10 @@ package config.security;
 
 import jakarta.*;
 
+
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,46 +13,49 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
+@EnableWebSecurity
 public class ServiceConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		// Enable CORS and disable CSRF
-		http = http.cors().and().csrf().disable();
+		http = http.csrf(csrf -> csrf.disable());
 
 		// Set session management to STATELESS
-		http = http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
+		http = http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
 		// Set unauthorized requests exception handler
 		http = http
-				.exceptionHandling()
-				.authenticationEntryPoint((request, response, ex) -> {
-					response.sendError(
-							HttpServletResponse.SC_UNAUTHORIZED, 
-							ex.getMessage()
-					);
-				})
-				.and();
+                .exceptionHandling(handling -> handling
+                        .authenticationEntryPoint((request, response, ex) -> {
+                            response.sendError(
+                                    HttpServletResponse.SC_UNAUTHORIZED,
+                                    ex.getMessage()
+                            );
+                        }));
 
 		// Set authorities (role/permissions) on endpoints
         http
-        	.authorizeRequests()
+        	.authorizeHttpRequests()
             // Our public endpoints
         	.requestMatchers("/").permitAll()
             .requestMatchers("/public/**").permitAll()
             .requestMatchers("/images/**").permitAll()
             .requestMatchers("/auth/**").permitAll()
             // Our private endpoints
-            .requestMatchers("/customer/**").hasRole("CUSTOMER") // customer 123456
+            .requestMatchers("/auth/**").permitAll()
+            .requestMatchers("/account/**").permitAll() // customer 123456
             .requestMatchers("/staff/**").hasRole("STAFF") // staff 123456
             .requestMatchers("/manager/**").hasRole("MANAGER") // manager 123456
             .anyRequest().authenticated();
@@ -86,9 +92,9 @@ public class ServiceConfig {
             new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
 //        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
+        config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        config.setAllowedMethods(Arrays.asList("GET","POST" ,"PUT", "DELETE", "OPTIONS"));
         config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }

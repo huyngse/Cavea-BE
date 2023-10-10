@@ -3,6 +3,7 @@ package Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import DTO.registerDTO;
 import DTO.userProfileDTO;
@@ -10,6 +11,7 @@ import DTO.userProfileDTO;
 import Entities.Accounts;
 import repository.AccountReponse;
 
+@Service
 public class AccountService {
 	
 	AccountReponse accrepositive;

@@ -1,6 +1,7 @@
 package Controller;
 
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,8 +17,13 @@ import Utils.SecurityUltis;
 
 @RestController
 @RequestMapping("/account")
+@CrossOrigin("*")
 public class AccountController {
-	
+	@GetMapping("/")
+	public String test()
+	{
+		return "tets";
+	}
 	AccountService accservice;
 	@GetMapping()
 	public Accounts getUser() {
