@@ -23,7 +23,7 @@ import jakarta.websocket.server.PathParam;
 @RequestMapping("/login")
 @CrossOrigin("http://localhost:3000")
 public class AccountController {
-	
+
 	@Autowired
 	private AccountService accservice;
 
@@ -31,19 +31,20 @@ public class AccountController {
 	public Account getUserOrEmail(String username) {
 		Account getUserorEmail = accservice.getUSernameorEmail(username);
 		if (getUserorEmail != null) {
-			return getUserorEmail; 
-	}
+			return getUserorEmail;
+		}
 		return null;
-}
+	}
 
 	@PostMapping("/checklogin")
-	public Account checkLogin(@RequestBody LoginDTO loginDTO ) {
+	public ResponseEntity<?> checkLogin(@RequestBody LoginDTO loginDTO) {
 		String username = loginDTO.getUsername();
 		String password = loginDTO.getPassword();
 		Account checklogin = accservice.checkLogin(username, password);
 		if (checklogin != null) {
-			return checklogin; 
+			return ResponseEntity.ok(checklogin);
+		} else {
+			return ResponseEntity.badRequest().body("Incorrect username or password");
+		}
 	}
-		return null;
-}
 }
