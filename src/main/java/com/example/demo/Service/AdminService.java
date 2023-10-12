@@ -41,6 +41,8 @@ public class AdminService {
 			return accrepo.save(account);
 	 }
 	 
-
+	 public List<Account>search(String search){
+		 return adminrepo.Search(search);
+	 }
 	 
 }
