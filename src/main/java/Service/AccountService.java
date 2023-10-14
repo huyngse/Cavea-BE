@@ -9,7 +9,7 @@ import DTO.registerDTO;
 import DTO.userProfileDTO;
 
 import Entities.Accounts;
-import repository.AccountReponse;
+import Repository.AccountReponse;
 
 @Service
 public class AccountService {
