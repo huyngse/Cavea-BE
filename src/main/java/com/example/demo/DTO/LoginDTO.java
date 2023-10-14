@@ -7,20 +7,16 @@ import com.example.demo.Entities.Account;
 public class LoginDTO implements Serializable {
 	private String username;
 	private String password;
-	
+
 	public LoginDTO() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 
 	public LoginDTO(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
 	}
-
-
 
 	public String getUsername() {
 		return username;
@@ -37,10 +33,5 @@ public class LoginDTO implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-
-	
-	
-	
 
 }

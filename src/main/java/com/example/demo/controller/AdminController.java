@@ -25,53 +25,52 @@ import com.example.demo.Service.AdminService;
 @RequestMapping("/admin")
 @CrossOrigin("http://localhost:3000")
 public class AdminController {
-	
+
 	@Autowired
 	private AdminService adminservie;
 	@Autowired
 	private AccountService accservice;
-	
+
 	@GetMapping("/customer")
 	public ResponseEntity<List<Account>> getAllCustomer() {
 		List<Account> accCustomer = adminservie.getAccountbyRole("customer");
 		return ResponseEntity.ok(accCustomer);
 	}
-	
+
 	@GetMapping("/staff")
 	public ResponseEntity<List<Account>> getAllStaff() {
 		List<Account> accStaff = adminservie.getAccountbyRole("staff");
 		return ResponseEntity.ok(accStaff);
-}
-	
+	}
+
 	@GetMapping("/manager")
 	public ResponseEntity<List<Account>> getAllManager() {
 		List<Account> accManager = adminservie.getAccountbyRole("manager");
 		return ResponseEntity.ok(accManager);
-}
-	
+	}
+
 	@PostMapping("/register")
 	public Account register(@RequestBody registerDTO registerDTO) {
 		Account account = adminservie.registerbyAdmin(registerDTO);
-		if(account == null) {
+		if (account == null) {
 			return null;
 		}
 		return account;
 	}
-	
+
 	@GetMapping("search")
-		public List<Account>search(@RequestParam String search ){
-			List<Account> search1 = adminservie.search(search);
-			return search1;
-		}
-	
+	public List<Account> search(@RequestParam String search) {
+		List<Account> search1 = adminservie.search(search);
+		return search1;
+	}
+
 	@PutMapping("/{id}")
-	public Account updateAccount(@PathVariable String id, @RequestBody registerDTO DTO){
+	public Account updateAccount(@PathVariable String id, @RequestBody registerDTO DTO) {
 		return accservice.updateAccount(id, DTO);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public void deleted(@PathVariable int id) {
 		accservice.deleted(id);
 	}
-	
 }
