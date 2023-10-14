@@ -1,23 +1,17 @@
 package com.example.demo.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.DTO.LoginDTO;
+import com.example.demo.DTO.registerDTO;
 import com.example.demo.Entities.Account;
 import com.example.demo.Service.AccountService;
-
-import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/login")
@@ -26,6 +20,8 @@ public class AccountController {
 
 	@Autowired
 	private AccountService accservice;
+
+	int count = 52;
 
 	@GetMapping("/account")
 	public Account getUserOrEmail(String username) {
@@ -37,14 +33,22 @@ public class AccountController {
 	}
 
 	@PostMapping("/checklogin")
-	public ResponseEntity<?> checkLogin(@RequestBody LoginDTO loginDTO) {
+	public Account checkLogin(@RequestBody LoginDTO loginDTO) {
 		String username = loginDTO.getUsername();
 		String password = loginDTO.getPassword();
 		Account checklogin = accservice.checkLogin(username, password);
 		if (checklogin != null) {
-			return ResponseEntity.ok(checklogin);
-		} else {
-			return ResponseEntity.badRequest().body("Incorrect username or password");
+			return checklogin;
 		}
+		return null;
+	}
+
+	@PostMapping("/register")
+	public Account register(@RequestBody registerDTO registerDTO) {
+		Account account = accservice.register(registerDTO);
+		if (account == null) {
+			return null;
+		}
+		return account;
 	}
 }

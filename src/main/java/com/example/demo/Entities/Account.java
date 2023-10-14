@@ -11,8 +11,8 @@ import jakarta.persistence.Table;
 @Table(name = "accounts", schema = "sales")
 public class Account {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "account_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(name = "username")
 	private String username;
@@ -28,13 +28,15 @@ public class Account {
 	private String lastName;
 	@Column(name = "role")
 	private String role;
-	
+	@Column(name = "enable")
+	private boolean enable;
+
 	public Account() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public Account(int id, String username, String password, String phone, String email, String firstName,
-			String lastName, String role) {
+			String lastName, String role, boolean enable) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -43,6 +45,7 @@ public class Account {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.role = role;
+		this.enable = enable;
 	}
 
 	public int getId() {
@@ -108,6 +111,13 @@ public class Account {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
-	
+
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
 }
