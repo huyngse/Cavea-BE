@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.DTO.LoginDTO;
+import com.example.demo.DTO.TokenDTO;
 import com.example.demo.DTO.registerDTO;
 import com.example.demo.Entities.Account;
 import com.example.demo.Service.AccountService;
@@ -37,18 +38,23 @@ public class AccountController {
 		String username = loginDTO.getUsername();
 		String password = loginDTO.getPassword();
 		Account checklogin = accservice.checkLogin(username, password);
-		if (checklogin != null) {
-			return checklogin;
+		if (checklogin == null) {
+			throw new RuntimeException("Tk hoặc Email bị trùng");
 		}
-		return null;
+		return checklogin;
 	}
 
 	@PostMapping("/register")
 	public Account register(@RequestBody registerDTO registerDTO) {
 		Account account = accservice.register(registerDTO);
 		if (account == null) {
-			return null;
+			throw new RuntimeException("Lỗi trong Account Controller");
 		}
 		return account;
+	}
+	
+	@PostMapping("/registerVerify")
+	public void registerVerify(@RequestBody TokenDTO DTO) {
+		accservice.setEnable(DTO.getToken());
 	}
 }

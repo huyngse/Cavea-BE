@@ -2,6 +2,7 @@ package com.example.demo.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,11 +37,12 @@ public class AccountService {
 		String username = registerDTO.getUsername();
 		String email = registerDTO.getEmail();
 		if (accrepo.getUsernameorEmail(username) != null) {
-			return null;
+			throw new RuntimeException("Username đã trùng");
 		}
 		if (accrepo.getUsernameorEmail(email) != null) {
-			return null;
+			throw new RuntimeException("Email đã trùng");
 		}
+		String token = UUID.randomUUID().toString();
 		Account account = new Account();
 		account.setUsername(username);
 		account.setPassword(registerDTO.getPassword());
@@ -49,9 +51,11 @@ public class AccountService {
 		account.setLastName(registerDTO.getLastName());
 		account.setPhone(registerDTO.getPhone());
 		account.setRole("customer");
-		account.setEnable(true);
+		account.setToken(token);
+		account.setEnable(false);
 		return accrepo.save(account);
 	}
+	
 
 	public Account updateAccount(String id, registerDTO DTO) {
 		Account accupdate = accrepo.getAccountByID(id);
@@ -82,7 +86,19 @@ public class AccountService {
 			account.setEnable(false);
 			accrepo.save(account);
 		} else {
-			throw new RuntimeException("DM loi lon loi lam");
+			throw new RuntimeException("Lỗi của Deleted");
+		}
+	}
+	
+	public void setEnable(String token) {
+		Optional<Account> acc = accrepo.getAccountByToken(token);
+		if(acc != null) {
+			Account account = acc.get();
+			account.setEnable(true);
+			accrepo.save(account);
+			throw new RuntimeException("Tạo tài khoản thành công");
+		}else {
+			throw new RuntimeException("Token không hợp lệ");
 		}
 	}
 }
