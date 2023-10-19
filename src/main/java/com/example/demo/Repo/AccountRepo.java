@@ -33,4 +33,6 @@ public interface AccountRepo extends JpaRepository<Account, Integer> {
 	@Query(value = "select * from sales.accounts where reset_password_token = :token", nativeQuery = true)
 	public Optional<Account> getAccountByToken(@Param("token") String token);
 	
+	@Query(value = "select * from sales.accounts where username = :username", nativeQuery = true)
+	public Account getAccountByUserName(@Param("username") String username);
 }

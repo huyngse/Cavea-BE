@@ -23,6 +23,10 @@ public class AccountService {
 	public Account checkLogin(String username, String password) {
 		return accrepo.checkLogin(username, password);
 	}
+	
+	public Account getAccountByUserName(String username) {
+		return accrepo.getAccountByUserName(username);
+	}
 
 	// public Account register (int id, String username, String password, String
 	// email, String firstname, String lastname, String phone, String role) {
