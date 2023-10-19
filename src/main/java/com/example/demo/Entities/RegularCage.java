@@ -10,8 +10,11 @@ public class RegularCage {
 	@Id
 	@Column(name = "cage_id")
 	private int cageId;
-	@Column(name = "birdtype_id")
-	private int birdtype;
+	@ManyToOne
+	@JoinColumn(name = "birdtype_id", referencedColumnName = "birdtype_id")
+	private Birdtype birdtype;
+	@Column(name = "cage_code")
+	private String cageCode;
 	@Column(name = "cage_name")
 	private String cageName;
 	@Column(name = "cage_price")
@@ -21,7 +24,7 @@ public class RegularCage {
 	@Column(name = "long_decription")
 	private String longDecript;
 	@OneToMany
-	@JoinColumn
+	@JoinColumn(name = "cage_id", referencedColumnName = "cage_id")
 	private List<CageImages> imageList;
 	@Column(name = "cage_color")
 	private String color;
@@ -55,11 +58,18 @@ public class RegularCage {
 	public void setCageId(int cageId) {
 		this.cageId = cageId;
 	}
-	public int getBirdtype() {
+	public Birdtype getBirdtype() {
 		return birdtype;
 	}
-	public void setBirdtype(int birdtype) {
+	public void setBirdtype(Birdtype birdtype) {
 		this.birdtype = birdtype;
+	}
+	
+	public String getCageCode() {
+		return cageCode;
+	}
+	public void setCageCode(String cageCode) {
+		this.cageCode = cageCode;
 	}
 	public String getCageName() {
 		return cageName;
