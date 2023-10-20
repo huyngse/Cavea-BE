@@ -3,6 +3,9 @@ package com.example.demo.Entities;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.example.demo.DTO.OrderItemDTO;
+import com.example.demo.DTO.RegularOrderDTO;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -29,6 +32,31 @@ public class RegularOrder {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "order_id", referencedColumnName = "order_id")
 	private List<RegularOrderItem> itemList;
+
+	public RegularOrder() {
+
+	}
+
+	public RegularOrder(RegularOrderDTO orderDTO) {
+		this.customerId = orderDTO.getCustomer().getCustomerId();
+		this.orderId = orderDTO.getId();
+		this.orderStatus = orderDTO.getStatus();
+		this.orderDate = orderDTO.getOrderDate();
+		this.shippedDate = orderDTO.getShippedDate();
+		this.staffId= orderDTO.getStaffId();
+		this.totalAmount = orderDTO.getTotalAmount();
+		for (OrderItemDTO item : orderDTO.getOrderItemList()) {
+			this.itemList.add(new RegularOrderItem(item));
+		}
+	}
+
+	public String getOrderNote() {
+		return orderNote;
+	}
+
+	public void setOrderNote(String orderNote) {
+		this.orderNote = orderNote;
+	}
 
 	public int getOrderId() {
 		return orderId;

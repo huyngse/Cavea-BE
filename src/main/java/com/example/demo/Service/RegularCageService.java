@@ -21,5 +21,11 @@ public class RegularCageService {
 	public RegularCage getRegularCageById(int cageId) {
 		RegularCage cage = regularCageRepository.findById(cageId);
 		return cage;
-	}	
+	}
+	public boolean checkExist(int cageId) {
+		if(regularCageRepository.existsById(cageId)) {
+			return true;
+		}
+		return false;
+	}
 }

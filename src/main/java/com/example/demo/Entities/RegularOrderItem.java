@@ -1,5 +1,7 @@
 package com.example.demo.Entities;
 
+import com.example.demo.DTO.OrderItemDTO;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -17,5 +19,56 @@ public class RegularOrderItem {
 	private int quantity;
 	@Column(name = "list_price")
 	private int listPrice;
-	
+
+	public RegularOrderItem() {
+	}
+
+	public RegularOrderItem(OrderItemDTO orderItemDTO) {
+		this.itemId = orderItemDTO.getId();
+		this.orderId = orderItemDTO.getOrderId();
+		this.cageId = orderItemDTO.getCageId();
+		this.quantity = orderItemDTO.getQuantity();
+		this.listPrice = orderItemDTO.getPrice();
+	}
+
+	public int getItemId() {
+		return itemId;
+	}
+
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
+
+	public int getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
+
+	public int getCageId() {
+		return cageId;
+	}
+
+	public void setCageId(int cageId) {
+		this.cageId = cageId;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public int getListPrice() {
+		return listPrice;
+	}
+
+	public void setListPrice(int listPrice) {
+		this.listPrice = listPrice;
+	}
+
 }

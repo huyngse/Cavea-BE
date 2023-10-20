@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Entities.RegularCage;
 import com.example.demo.Service.RegularCageService;
+import com.example.demo.exceptions.NotFoundException;
 
 @RestController
 @RequestMapping("/product")
@@ -21,6 +22,9 @@ public class RegularCageController {
 	}
 	@GetMapping("/detail")
 	public RegularCage getRegularCageById(int cageId) {
+		if(regularCageService.checkExist(cageId) == false) {
+			throw new NotFoundException("Cage not found!");
+		}
 		return regularCageService.getRegularCageById(cageId);
 	}
 }
