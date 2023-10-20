@@ -16,7 +16,7 @@ public class registerDTO {
 
 	public registerDTO(int account_id, String username, String password, String email, String firstName,
 			String lastName,
-			String phone, String role) {
+			String phone, String role, String verifyToken) {
 		this.account_id = account_id;
 		this.username = username;
 		this.password = password;
@@ -90,5 +90,5 @@ public class registerDTO {
 	public void setRole(String role) {
 		this.role = role;
 	}
-
+	
 }

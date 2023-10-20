@@ -2,6 +2,7 @@ package com.example.demo.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,10 @@ public class AccountService {
 		return accrepo.checkLogin(username, password);
 	}
 
+	public Account getAccountByUserName(String username) {
+		return accrepo.getAccountByUserName(username);
+	}
+
 	// public Account register (int id, String username, String password, String
 	// email, String firstname, String lastname, String phone, String role) {
 	// return accrepo.register(id, username, password, email, firstname, lastname,
@@ -36,11 +41,12 @@ public class AccountService {
 		String username = registerDTO.getUsername();
 		String email = registerDTO.getEmail();
 		if (accrepo.getUsernameorEmail(username) != null) {
-			return null;
+			throw new RuntimeException("Duplicate username");
 		}
 		if (accrepo.getUsernameorEmail(email) != null) {
-			return null;
+			throw new RuntimeException("Duplicate email");
 		}
+		String token = UUID.randomUUID().toString();
 		Account account = new Account();
 		account.setUsername(username);
 		account.setPassword(registerDTO.getPassword());
@@ -49,14 +55,15 @@ public class AccountService {
 		account.setLastName(registerDTO.getLastName());
 		account.setPhone(registerDTO.getPhone());
 		account.setRole("customer");
-		account.setEnable(true);
+		account.setToken(token);
+		account.setEnable(false);
 		return accrepo.save(account);
 	}
 
 	public Account updateAccount(String id, registerDTO DTO) {
 		Account accupdate = accrepo.getAccountByID(id);
 		if (accupdate == null) {
-			throw new RuntimeException("DM may nha");
+			throw new RuntimeException("id not found");
 		}
 		// if (accupdate == null) {
 		// return null;
@@ -82,7 +89,18 @@ public class AccountService {
 			account.setEnable(false);
 			accrepo.save(account);
 		} else {
-			throw new RuntimeException("DM loi lon loi lam");
+			throw new RuntimeException("Error of Deleted");
+		}
+	}
+
+	public void setEnable(String token) {
+		Optional<Account> acc = accrepo.getAccountByToken(token);
+		if (acc != null) {
+			Account account = acc.get();
+			account.setEnable(true);
+			accrepo.save(account);
+		} else {
+			throw new RuntimeException("Token not found");
 		}
 	}
 }

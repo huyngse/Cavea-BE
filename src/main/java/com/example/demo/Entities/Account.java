@@ -28,15 +28,17 @@ public class Account {
 	private String lastName;
 	@Column(name = "role")
 	private String role;
+	@Column(name = "reset_password_token")
+	private String token;
 	@Column(name = "enable")
 	private boolean enable;
-
+	
 	public Account() {
 
 	}
 
 	public Account(int id, String username, String password, String phone, String email, String firstName,
-			String lastName, String role, boolean enable) {
+			String lastName, String role,String token, boolean enable) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -45,6 +47,7 @@ public class Account {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.role = role;
+		this.token = token;
 		this.enable = enable;
 	}
 
@@ -120,4 +123,13 @@ public class Account {
 		this.enable = enable;
 	}
 
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	
 }
