@@ -67,4 +67,9 @@ public class AccountController {
 	public void registerVerify(@RequestBody TokenDTO DTO) {
 		accservice.setEnable(DTO.getToken());
 	}
+	
+	@GetMapping("/forgotpassword")
+	public void restPassword(String newPassword, String token) {
+		accservice.setNewPassWord(token, newPassword);
+	}
 }

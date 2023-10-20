@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import java.util.List;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -60,7 +61,6 @@ public class AccountService {
 		return accrepo.save(account);
 	}
 	
-
 	public Account updateAccount(String id, registerDTO DTO) {
 		Account accupdate = accrepo.getAccountByID(id);
 		if (accupdate == null) {
@@ -100,9 +100,18 @@ public class AccountService {
 			Account account = acc.get();
 			account.setEnable(true);
 			accrepo.save(account);
-			throw new RuntimeException("Tạo tài khoản thành công");
 		}else {
 			throw new RuntimeException("Token không hợp lệ");
 		}
+	}
+	
+	public void setNewPassWord(String token, String newPassword) {
+		Optional<Account> account = accrepo.getAccountByToken(token);
+		if(account == null) {
+			throw new RuntimeException("Token not match");
+		}
+		Account acc = account.get();
+		acc.setPassword(newPassword);
+		accrepo.save(acc);
 	}
 }

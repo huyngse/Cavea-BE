@@ -12,7 +12,7 @@ import com.example.demo.Entities.Account;
 @Repository
 public interface AccountRepo extends JpaRepository<Account, Integer> {
 
-	@Query( value = "select * from sales.accounts acc where acc.username = :username or acc.email = :username", nativeQuery = true)
+	@Query( value = "select * from sales.accounts acc where acc.username = :username and enable = 'true' or acc.email = :username and enable = 'true' ", nativeQuery = true)
 	public Account getUsernameorEmail(@Param("username") String username);
 
 	@Query(value = "select * from sales.accounts where username = :username and enable = 'true' and password = :password or email = :username and password = :password and enable = 'true'", nativeQuery = true)
