@@ -33,23 +33,25 @@ public class AccountController {
 		}
 		return null;
 	}
+
 	@PostMapping("/getAccount")
 	public Account getAccountByUsername(@RequestBody UserNameDTO DTO) {
 		String username = DTO.getUsername();
 		Account getAccount = accservice.getAccountByUserName(username);
-		if(getAccount == null){
-			throw new RuntimeException("Không tìm thấy TK!!!");
+		if (getAccount == null) {
+			throw new RuntimeException("Not found");
 		}
 		return getAccount;
-		
+
 	}
+
 	@PostMapping("/checklogin")
 	public Account checkLogin(@RequestBody LoginDTO loginDTO) {
 		String username = loginDTO.getUsername();
 		String password = loginDTO.getPassword();
 		Account checklogin = accservice.checkLogin(username, password);
 		if (checklogin == null) {
-			throw new RuntimeException("Không có tài khoản");
+			throw new RuntimeException("Not found account");
 		}
 		return checklogin;
 	}
@@ -58,11 +60,11 @@ public class AccountController {
 	public Account register(@RequestBody registerDTO registerDTO) {
 		Account account = accservice.register(registerDTO);
 		if (account == null) {
-			throw new RuntimeException("Lỗi trong Account Controller");
+			throw new RuntimeException("Error at Account Controller");
 		}
 		return account;
 	}
-	
+
 	@PostMapping("/registerVerify")
 	public void registerVerify(@RequestBody TokenDTO DTO) {
 		accservice.setEnable(DTO.getToken());
