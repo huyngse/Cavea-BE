@@ -1,4 +1,4 @@
-package DTO;
+package com.example.demo.DTO;
 
 public class AutheUserRequest {
 	private String username;
