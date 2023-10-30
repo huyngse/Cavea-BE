@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/birdtypes")
+@CrossOrigin("http://localhost:3000")
 public class BirdTypeController {
 
     private final BirdTypeRepository birdTypeRepository;
