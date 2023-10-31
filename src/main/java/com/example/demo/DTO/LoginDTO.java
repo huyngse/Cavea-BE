@@ -2,8 +2,6 @@ package com.example.demo.DTO;
 
 import java.io.Serializable;
 
-import com.example.demo.Entities.Account;
-
 public class LoginDTO implements Serializable {
 	private String username;
 	private String password;
