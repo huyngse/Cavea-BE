@@ -1,6 +1,5 @@
 package com.example.demo.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -8,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.DTO.registerDTO;
-import com.example.demo.Entities.Account;
+import com.example.demo.Entities.sales.Account;
 import com.example.demo.Repo.AccountRepo;
 
 @Service
@@ -102,5 +101,9 @@ public class AccountService {
 		} else {
 			throw new RuntimeException("Token not found");
 		}
+	}
+
+	public Account getAccountInfor(String input) {
+		return accrepo.getAccountInfor(input);
 	}
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.DTO.registerDTO;
-import com.example.demo.Entities.Account;
+import com.example.demo.Entities.sales.Account;
 import com.example.demo.Repo.AccountRepo;
 import com.example.demo.Repo.AdminRepo;
 

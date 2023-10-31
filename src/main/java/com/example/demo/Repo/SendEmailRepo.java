@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.example.demo.Entities.Account;
+import com.example.demo.Entities.sales.Account;
 
 @Repository
 public interface SendEmailRepo extends JpaRepository<Account, Integer> {
