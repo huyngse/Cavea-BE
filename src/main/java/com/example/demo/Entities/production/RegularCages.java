@@ -58,6 +58,8 @@ public class RegularCages implements Serializable {
     private Float discount;
     @Column(name = "quantity")
     private Integer quantity;
+    @Column(name = "urlhome")
+    private String urlhome;
     @OneToMany(mappedBy = "regularCages")
     @ToString.Exclude
     @JsonIgnore

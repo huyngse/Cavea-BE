@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
@@ -31,4 +32,12 @@ public interface RegularCagesRepository extends JpaRepository<RegularCages, Inte
     @Query(value = "update production.regular_cages set quantity = quantity - 1 " +
             "where cage_id = :cage_id", nativeQuery = true)
     void updateQuantity(@Param(value = "cage_id") Integer cageId);
+
+    @Query(value = "  SELECT DISTINCT A.quantity\n" +
+            "  FROM [production].[regular_cages] A \n" +
+            "  LEFT JOIN [dbo].[cart] B on A.cage_id = B.product_id\n" +
+            "  WHERE B.product_id = :product_id", nativeQuery = true)
+    Integer getProduct_Quantity(@Param(value = "product_id") Integer product_id);
+
+    Optional<RegularCages> getRegularCagesByCageId(int cage_id);
 }
