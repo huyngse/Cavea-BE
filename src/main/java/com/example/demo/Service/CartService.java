@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import com.example.demo.DTO.ApiResponse;
+import com.example.demo.DTO.CartDTOInterface;
 import com.example.demo.Entities.dbo.Cart;
 import com.example.demo.Repo.CartRepository;
 import com.example.demo.Repo.RegularCagesRepository;
@@ -11,7 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.SimpleDateFormat;
@@ -28,9 +28,17 @@ public class CartService {
     RegularCagesRepository cagesRepository;
     @Autowired
     private RestTemplate restTemplate;
-    public Page<Cart> get(String username, int pageNo, int pageSize, Integer status) {
+    public Page<CartDTOInterface> get(String username, int pageNo, int pageSize, Integer status) {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
         return repository.get(username, status, pageable);
+    }
+    public Page<CartDTOInterface> getUnSolveRegularCage(String username, int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        return repository.getUnSolveRegularCage(username, pageable);
+    }
+    public Page<CartDTOInterface> getUnSolveCustomRegularCage(String username, int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        return repository.getUnSolveCustomRegularCage(username, pageable);
     }
     public void addToCart(Cart object) {
         repository.save(object);
@@ -38,6 +46,10 @@ public class CartService {
 
     public void removeOne(String username, Integer productId) {
         repository.removeOne(username, productId);
+    }
+
+    public void removeAtom(String username, Integer productId) {
+        repository.removeAtom(username, productId);
     }
 
     public void removeAll(String username) {
@@ -67,7 +79,7 @@ public class CartService {
         return Objects.requireNonNull(response.getBody()).getData();
     }
 
-    public Page<Cart> bill(String username, Integer status, int page, int pageSize) {
+    public Page<Cart> bill(String username, Integer status, int page, int pageSize, Integer payment) {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         Integer billId = repository.countBillId();
         if(billId == null)
@@ -84,7 +96,7 @@ public class CartService {
         calendar.add(Calendar.DAY_OF_MONTH, 5);
         String futureDate = dateFormat.format(calendar.getTime());
         log.info("Ngày hiện tại + 5 ngày: " + futureDate);
-        repository.updateAllBought(username, status, billId, currentDate, futureDate);
+        repository.updateAllBought(username, status, billId, currentDate, futureDate, payment);
         Page<Cart> cartPage = repository.getPageByBillId(billId, pageable);
         List<Cart> list = cartPage.toList();
         log.info("cartPageList|" + cartPage.toList());

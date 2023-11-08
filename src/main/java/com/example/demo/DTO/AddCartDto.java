@@ -1,5 +1,6 @@
 package com.example.demo.DTO;
 
+import com.example.demo.Entities.sales.Payment;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,4 +18,6 @@ public class AddCartDto {
     private String description;
     private String birdtypeId;
     private Integer basePrice;
+
+
 }

@@ -1,11 +1,15 @@
 package com.example.demo.Entities.sales;
 
+import com.example.demo.Entities.dbo.Cart;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -46,4 +50,9 @@ public class CustomCageOrders implements Serializable {
     private String cagePerch;
     @Column(name = "cage_cups")
     private String cageCups;
+    @OneToMany(mappedBy = "customCages")
+    @ToString.Exclude
+    @JsonIgnore
+    private List<Cart> carts;
+
 }

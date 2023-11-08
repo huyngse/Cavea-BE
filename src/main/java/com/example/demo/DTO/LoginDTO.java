@@ -7,7 +7,6 @@ public class LoginDTO implements Serializable {
 	private String password;
 
 	public LoginDTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public LoginDTO(String username, String password) {

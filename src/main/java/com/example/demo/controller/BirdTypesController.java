@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.DTO.BirdTypesDTO;
 import com.example.demo.DTO.PageDto;
-import com.example.demo.Entities.dbo.BirdTypes;
 import com.example.demo.Service.BirdTypesService;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,10 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 @Controller
 @Log4j2
@@ -25,7 +23,7 @@ public class BirdTypesController {
     BirdTypesService service;
     @GetMapping(value = {"/get"})
     public ResponseEntity<?> get() {
-        List<BirdTypes> list = service.get();
+        List<BirdTypesDTO> list = service.get();
         log.info("listlist|" + list.toString());
         PageDto response = PageDto.builder()
                 .code(200)

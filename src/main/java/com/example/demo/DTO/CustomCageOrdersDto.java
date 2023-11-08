@@ -11,14 +11,10 @@ import java.util.List;
 @Setter
 @Builder
 public class CustomCageOrdersDto {
-    private Integer orderId;
-    private Integer customerId;
     private String orderNote;
     private String orderStatus;
     private Date orderDate;
     private Date shippedDate;
-    private Integer staffId;
-    private Integer estimateTime;
     private Integer totalPrice;
     private String cageColor;
     private String cageShape;
